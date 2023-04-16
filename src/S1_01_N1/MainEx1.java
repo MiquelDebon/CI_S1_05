@@ -13,7 +13,7 @@ public class MainEx1 {
     public static void main(String[] args) {
         File file;
         String directory;
-        boolean rightDirectory;
+        boolean rightDirectory = false;
         String[] filesList;
 
         //"/Users/miqueldebonvillagrasa/Desktop"
@@ -24,15 +24,22 @@ public class MainEx1 {
             directory = sc.nextLine();
             file = new File(directory);
             filesList = file.list();
-            rightDirectory = filesList.length > 0 ;
+            if(file.exists() ){
+                rightDirectory = true;
+            }
         }while(!rightDirectory);
 
-        Arrays.sort(filesList);
-        for(int i=0; i<filesList.length; i++){
-            if(filesList[i].charAt(0) == '.'){ //Skip hidden files
-            }else{
-                System.out.println(filesList[i]);
+        if(filesList.length > 0){
+            Arrays.sort(filesList);
+            for(int i=0; i<filesList.length; i++){
+                if(filesList[i].charAt(0) == '.'){ //Skip hidden files
+                }else{
+                    System.out.println(filesList[i]);
+                }
             }
+        }else{
+            System.out.println("There is no file");
         }
+
     }
 }
