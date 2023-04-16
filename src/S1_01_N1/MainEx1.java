@@ -1,10 +1,8 @@
 package S1_01_N1;
 
-import com.sun.security.jgss.GSSUtil;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class MainEx1 {
@@ -16,16 +14,17 @@ public class MainEx1 {
         boolean rightDirectory = false;
         String[] filesList;
 
-        //"/Users/miqueldebonvillagrasa/Desktop"
-
+        System.out.println("    💡You also can copy:   /Users/miqueldebonvillagrasa/Desktop");
         do{
-            System.out.println("    💡You also can copy:   /Users/miqueldebonvillagrasa/Desktop");
             System.out.print("✏️Please write the directory: ");
             directory = sc.nextLine();
             file = new File(directory);
             filesList = file.list();
             if(file.exists() ){
+                System.out.println("✅Right directory");
                 rightDirectory = true;
+            }else{
+                System.out.println("⚠️This directory does not exist");
             }
         }while(!rightDirectory);
 
@@ -38,7 +37,7 @@ public class MainEx1 {
                 }
             }
         }else{
-            System.out.println("There is no file");
+            System.out.println("💥There is no file");
         }
 
     }
