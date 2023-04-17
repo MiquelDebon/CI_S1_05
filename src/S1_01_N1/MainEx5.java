@@ -29,8 +29,10 @@ public class MainEx5 {
 
     static void serializarObjecto(Object obj, String outPath){
         try {
+            //Create a File
             FileOutputStream newFile = new FileOutputStream(outPath);
-            ObjectOutputStream out =  new ObjectOutputStream(newFile);//This class provides methods for writing Java objects to a file.
+            //ObjectOutputStream provides methods for writing Java objects to a file.
+            ObjectOutputStream out =  new ObjectOutputStream(newFile);
             out.writeObject(obj);
             newFile.close();
             out.close();
