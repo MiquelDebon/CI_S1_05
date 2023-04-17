@@ -1,6 +1,7 @@
 package S1_01_N1;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
@@ -12,12 +13,12 @@ public class MainEx2 {
 
 //        File file = getPath();
         File file = new File("/Users/miqueldebonvillagrasa/Desktop");
-        printResult(file);
+        loopDirectoryFile(file);
 
     }
 
 
-    static File getPath(){
+    static File getFileByPath(){
         File file;
         String directory;
         boolean rightDirectory = false;
@@ -37,7 +38,7 @@ public class MainEx2 {
         return  file;
     }
 
-    static void printResult (File file){
+    static void loopDirectoryFile(File file){
         String[] filesList = file.list();
         String directory = file.getPath();
 
@@ -49,12 +50,7 @@ public class MainEx2 {
                 }else {
                     String newpath = directory + "/" + filesList[i];
                     File currentFile = new File(newpath);
-                    File[] childrenDirectory = printFile(currentFile);
-                    if(childrenDirectory != null){
-                        for(File childrenFile : childrenDirectory){
-                            printFile(childrenFile);
-                        }
-                    }
+                    printFile(currentFile);
                 }
             }
         }else{
@@ -63,20 +59,27 @@ public class MainEx2 {
     }
 
 
-    static File[] printFile(File currentFile){
+    static void printFile(File currentFile){
         File[] childrenFile = null;
         if(currentFile != null){
             Date date = new Date(currentFile.lastModified());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy hh:mm");
+            String simpleDate = simpleDateFormat.format(date);
+
             if (currentFile.isDirectory()) {
-                System.out.println("🗂️ DIRECTORY " + currentFile.getName() + " LAST MODIFICATION ⏰: " +date );
+                System.out.println("🗂️ DIRECTORY " + currentFile.getName() + " LAST MODIFICATION - ⏰" + simpleDate );
                 childrenFile = currentFile.listFiles();
+                if(childrenFile != null){
+                        for(File c : childrenFile){
+                            printFile(c);
+                        }
+                    }
             } else if (currentFile.isFile()) {
-                System.out.println("📈 File " + currentFile.getName() + " LAST MODIFICATION ⏰: " +date );
+                System.out.println("📈 File " + currentFile.getName() + " LAST MODIFICATION - ⏰" + simpleDate );
             } else if (currentFile.isHidden()) {
-                System.out.println("Is hidden" + " LAST MODIFICATION ⏰: "  +date );
+                System.out.println("Is hidden" + " LAST MODIFICATION - ⏰"  + simpleDate );
             }
         }
-        return childrenFile;
     }
 }
 

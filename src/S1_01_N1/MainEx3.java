@@ -18,12 +18,11 @@ public class MainEx3 {
     }
 
 
-    static File getPath(){
+    static File getFileByPath(){
         File file;
         String directory;
         boolean rightDirectory = false;
 
-        System.out.println("    💡You also can copy:   /Users/miqueldebonvillagrasa/Desktop");
         do{
             System.out.print("✏️Please write the directory: ");
             directory = sc.nextLine();
