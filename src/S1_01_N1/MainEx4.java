@@ -11,18 +11,7 @@ public class MainEx4 {
         //Para que el usuario pueda introducir la dirección descomentar la linea de abajo
 //        File file = getPath();
         File file = new File(directoryToCheck);
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line = "";
-            while((line = br.readLine()) != null){
-                System.out.println(line);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("No such path");
-        } catch (IOException e) {
-            System.out.println("Error");
-        }
+        readFileOnConsole(file);
 
     }
 
@@ -36,7 +25,7 @@ public class MainEx4 {
             System.out.print("✏️Please write the directory: ");
             directory = sc.nextLine();
             file = new File(directory);
-            if(file.exists() ){
+            if(file.exists()){
                 System.out.println("✅Right directory");
                 rightDirectory = true;
             }else{
@@ -44,5 +33,26 @@ public class MainEx4 {
             }
         }while(!rightDirectory);
         return  file;
+    }
+
+    static void readFileOnConsole(File file){
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String line = "";
+            while((line = br.readLine()) != null){
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No such path");
+        } catch (IOException e) {
+            System.out.println("Error");
+        }finally {
+            try {
+                //I wrote the closeMethod at the finallyBlock to ensure it close
+                br.close();
+            } catch (IOException e) {
+            }
+        }
     }
 }
