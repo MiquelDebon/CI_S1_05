@@ -70,10 +70,10 @@ public class MainEx2 {
                 System.out.println("🗂️ DIRECTORY " + currentFile.getName() + " LAST MODIFICATION - ⏰" + simpleDate );
                 childrenFile = currentFile.listFiles();
                 if(childrenFile != null){
-                        for(File c : childrenFile){
-                            printFile(c);
-                        }
+                    for(File c : childrenFile){
+                        printFile(c);
                     }
+                }
             } else if (currentFile.isFile()) {
                 System.out.println("📈 File " + currentFile.getName() + " LAST MODIFICATION - ⏰" + simpleDate );
             } else if (currentFile.isHidden()) {

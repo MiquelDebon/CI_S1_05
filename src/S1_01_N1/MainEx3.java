@@ -2,6 +2,7 @@ package S1_01_N1;
 
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class MainEx3 {
 
 //        File file = getPath();
         File file = new File(directoryToCheck);
-        printResult(file);
+        loopDirectoryFile(file);
     }
 
 
@@ -37,7 +38,8 @@ public class MainEx3 {
         return  file;
     }
 
-    static void printResult (File file){
+
+    static void loopDirectoryFile(File file){
         String[] filesList = file.list();
         String directory = file.getPath();
 
@@ -49,12 +51,7 @@ public class MainEx3 {
                 }else {
                     String newpath = directory + "/" + filesList[i];
                     File currentFile = new File(newpath);
-                    File[] childrenDirectory = writeTXTMethod(currentFile);
-                    if(childrenDirectory != null){
-                        for(File childrenFile : childrenDirectory){
-                            writeTXTMethod(childrenFile);
-                        }
-                    }
+                    writeTXTMethod(currentFile);
                 }
             }
         }else{
@@ -63,17 +60,24 @@ public class MainEx3 {
     }
 
 
-    static File[] writeTXTMethod(File currentFile){
+    static void writeTXTMethod(File currentFile){
         File[] childrenFile = null;
 
         if(currentFile != null){
             Date date = new Date(currentFile.lastModified());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy hh:mm");
+            String simpleDate = simpleDateFormat.format(date);
             try {
                 FileWriter writeFile = new FileWriter(directoryToWriteTXT, true);
                 PrintWriter printWriter = new PrintWriter(writeFile);
                 if (currentFile.isDirectory()) {
                     printWriter.println("\n🗂️ DIRECTORY " + currentFile.getName() + " LAST MODIFICATION ⏰: " +date );
                     childrenFile = currentFile.listFiles();
+                    if(childrenFile != null){
+                        for(File c : childrenFile){
+                            writeTXTMethod(c);
+                        }
+                    }
                 } else if (currentFile.isFile()) {
                     printWriter.println("\n📈 File " + currentFile.getName() + " LAST MODIFICATION ⏰: " +date );
                 } else if (currentFile.isHidden()) {
@@ -84,7 +88,6 @@ public class MainEx3 {
                 throw new RuntimeException(e);
             }
         }
-        return childrenFile;
     }
 }
 
